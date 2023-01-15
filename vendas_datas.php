@@ -89,7 +89,7 @@ $query_table = $conn->query($sql_table) or die('Erro: ' . $sql_table . $conn->er
             </div>
         </form>
 
-        <table class="table text-white mt-3 text-center">
+        <table class="table table-hover text-white mt-3 text-center">
             <thead>
                 <tr>
                     <th scope="col">ID da Venda</th>
@@ -106,7 +106,7 @@ $query_table = $conn->query($sql_table) or die('Erro: ' . $sql_table . $conn->er
 
                     echo '<th>' . $row['id_vendas'] . '</th>';
                     echo '<th>' . date("d/m/Y", strtotime($row['data_venda'])) . '</th>';
-                    echo '<th>' . $row['id_metodo_pagamento'] . '</th>';
+                    echo '<th>' . $row['id_metodo_pagamento'] . ' x</th>';
                     echo '<th>R$ ' . number_format($row['valor_cesta'], 2, ",", ".") . '</th>';
                     echo '<th>';
                     echo '<a href="datas.php?idv=' . $row['id_vendas'] . '&id=' . $row['id_clientes'] . '"><i class="fa-solid fa-floppy-disk fs-4 primary"></i></a>';
@@ -142,6 +142,7 @@ $query_table = $conn->query($sql_table) or die('Erro: ' . $sql_table . $conn->er
             }
 
             $("#btn").click(function() {
+                let $mtd = $('#metodo_pagamento').val();
                 let $data = $("#data").val();
                 let $data_2 = $("#data_2").val();
                 let $data_3 = $("#data_3").val();
@@ -159,13 +160,14 @@ $query_table = $conn->query($sql_table) or die('Erro: ' . $sql_table . $conn->er
                         data_4: $data_4,
                         id: $id,
                         valor_cesta: $valor_cesta,
+                        mtd: $mtd,
                     },
                     dataType: "json",
                     success: function(dados, status) {
-                        alert(dados);
+                        location.href = "vendas_datas.php?id=" + $id + "";
                     },
                     error: function(dados, status) {
-                        alert(dados)
+                        alert(status)
                     }
                 });
 

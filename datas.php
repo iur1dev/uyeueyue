@@ -21,16 +21,34 @@ if (isset($_GET['idv'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_GET['btn_update'])) {
-        $data_1_parcela = $idv;
-
-        var_dump($data_1_parcela);
-        echo 'teste';
-
-        // $sql_insert_data = "insert into vendas (data_1_parcela) values ('$data_1_parcela')";
-        // $query_insert_data = $conn->query($sql_insert_data) or die('erro insert data ' . $conn->error);
+    if (isset($_POST['dt1'])) {
+        $dt1 = $_POST['dt1'];
+    } else {
+        $dt1 = "";
     }
+
+    if (isset($_POST['dt2'])) {
+        $dt2 = $_POST['dt2'];
+    } else {
+        $dt2 = "";
+    }
+
+    if (isset($_POST['dt3'])) {
+        $dt3 = $_POST['dt3'];
+    } else {
+        $dt3 = "";
+    }
+
+    if (isset($_POST['dt4'])) {
+        $dt4 = $_POST['dt4'];
+    } else {
+        $dt4 = "";
+    }
+
+    $sqlins = "update vendas set data_1_parcela = '$dt1', data_2_parcela = '$dt2', data_3_parcela = '$dt3', data_4_parcela = '$dt4' where id_vendas = '$idv'";
+    $queryins = $conn->query($sqlins) or die('erro: ' . $sqlins . $conn->error);
 }
+
 
 $sql_total_cesta = "SELECT SUM(valor_cesta) as total FROM vendas WHERE id_clientes = '$id'";
 $query_total_cesta = $conn->query($sql_total_cesta) or die("erro query total " . $conn->error);
@@ -44,6 +62,13 @@ $query_clientes = $conn->query($sql_clientes) or die("erro sql " . $conn->error)
 $sql = "SELECT * FROM vendas
 WHERE '$idv' = id_vendas ";
 $query = $conn->query($sql) or die('erro select vendas ' . $conn->error);
+
+// if ($id > 0) {
+//     $sql_delete = "delete from clientes where '$idv' = id_vendas";
+//     $query_delete = $conn->query($sql_delete) or die('Não pode deletar o cadastro pq tem cesta vinculada' . $conn->error);
+
+//     header('Location: home.php');
+// }
 
 ?>
 <!DOCTYPE html>
@@ -89,6 +114,7 @@ $query = $conn->query($sql) or die('erro select vendas ' . $conn->error);
                         <th scope="col">Parcelas</th>
                         <th scope="col">Data de Pagamento</th>
                         <th scope="col">Datas</th>
+                        <th scope="col">Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,26 +147,26 @@ $query = $conn->query($sql) or die('erro select vendas ' . $conn->error);
 
                         echo '<td>';
                         if ($row['id_metodo_pagamento'] == 1) {
-                            echo '<input disabled name="a' . $row['id_vendas'] . '" type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
+                            echo '<input name="dt1" type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
                         } else if ($row['id_metodo_pagamento'] == 2) {
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_2_parcela'] ? $row['data_2_parcela'] : "") . '">';
+                            echo '<input name="dt1" type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
+                            echo '<input name="dt2" type="date" class="form-control text-center" value="' . ($row['data_2_parcela'] ? $row['data_2_parcela'] : "") . '">';
                         } else if ($row['id_metodo_pagamento'] == 3) {
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_2_parcela'] ? $row['data_2_parcela'] : "") . '">';
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_3_parcela'] ? $row['data_3_parcela'] : "") . '">';
+                            echo '<input name="dt1" type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
+                            echo '<input name="dt2" type="date" class="form-control text-center" value="' . ($row['data_2_parcela'] ? $row['data_2_parcela'] : "") . '">';
+                            echo '<input name="dt3" type="date" class="form-control text-center" value="' . ($row['data_3_parcela'] ? $row['data_3_parcela'] : "") . '">';
                         } else if ($row['id_metodo_pagamento'] == 4) {
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_2_parcela'] ? $row['data_2_parcela'] : "") . '">';
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_3_parcela'] ? $row['data_3_parcela'] : "") . '">';
-                            echo '<input disabled type="date" class="form-control text-center" value="' . ($row['data_4_parcela'] ? $row['data_4_parcela'] : "") . '">';
+                            echo '<input name="dt1" type="date" class="form-control text-center" value="' . ($row['data_1_parcela'] ? $row['data_1_parcela'] : "") . '">';
+                            echo '<input name="dt2" type="date" class="form-control text-center" value="' . ($row['data_2_parcela'] ? $row['data_2_parcela'] : "") . '">';
+                            echo '<input name="dt3" type="date" class="form-control text-center" value="' . ($row['data_3_parcela'] ? $row['data_3_parcela'] : "") . '">';
+                            echo '<input name="dt4" type="date" class="form-control text-center" value="' . ($row['data_4_parcela'] ? $row['data_4_parcela'] : "") . '">';
                         }
                         echo '</td>';
 
                         echo '<td>';
-                        echo "<a href='datas2.php?idv=" . $row['id_vendas'] . "&id=" . $row['id_clientes'] . "'><i class='fa-regular fa-calendar fs-4 primary'></i></a>";
+                        echo "<button type='submit' name='guardarData'><i class='fa-regular fa-calendar fs-4 primary'></i></button>";
                         echo '</td>';
-
+                        echo '<th><a href="datas.php?idv=' . $row['id_vendas'] . '&id=' . $row['id_clientes'] . '"><i class="fa-solid fa-trash fs-4 text-danger"></i></a></th>';
                         echo '<tr>';
                     }
                     ?>

@@ -76,7 +76,7 @@ if ($id > 0) {
             <thead class="text-white">
                 <tr class="text-center">
                     <th>Vendas</th>
-                    <th>Datas</th>
+                    <!-- <th>Datas</th> -->
                     <th>Pagamentos</th>
                     <th>ID</th>
                     <th>Nome</th>
@@ -90,7 +90,7 @@ if ($id > 0) {
                     while ($row = mysqli_fetch_array($query_pesquisar)) {
                         echo "<tr class='text-center'>";
                         echo "<th><a href='vendas_datas.php?id=" . $row['id_clientes'] . "'><i class='fa-solid fa-utensils fs-4 text-secondary'></i></a></th>";
-                        echo "<th><a href='datas.php?id=" . $row['id_clientes'] . "'><i class='fa-regular fa-calendar fs-4 text-primary'></i></a></th>";
+                        // echo "<th><a href='datas.php?id=" . $row['id_clientes'] . "'><i class='fa-regular fa-calendar fs-4 text-primary'></i></a></th>";
                         echo "<th><a href='pagamentos.php?id=" . $row['id_clientes'] . "'><i class='fa-sharp fa-solid fa-coins fs-4 text-warning'></i></a></th>";
                         echo "<th>" . $row['id_clientes'] . "</th>";
                         echo "<th>" . $row['nome'] . "</th>";
@@ -102,7 +102,7 @@ if ($id > 0) {
                     while ($row = mysqli_fetch_assoc($query)) {
                         echo "<tr class='text-center'>";
                         echo "<th><a href='vendas_datas.php?id=" . $row['id_clientes'] . "'><i class='fa-solid fa-utensils fs-4 text-secondary'></i></a></th>";
-                        echo "<th><a href='datas.php?id=" . $row['id_clientes'] . "'><i class='fa-regular fa-calendar fs-4 text-primary'></i></a></th>";
+                        // echo "<th><a href='datas.php?id=" . $row['id_clientes'] . "'><i class='fa-regular fa-calendar fs-4 text-primary'></i></a></th>";
                         echo "<th><a href='pagamentos.php?id=" . $row['id_clientes'] . "'><i class='fa-sharp fa-solid fa-coins fs-4 text-warning'></i></a></th>";
                         echo "<th>" . $row['id_clientes'] . "</th>";
                         echo "<th>" . $row['nome'] . "</th>";
